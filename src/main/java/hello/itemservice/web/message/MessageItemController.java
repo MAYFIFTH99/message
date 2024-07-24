@@ -3,6 +3,7 @@ package hello.itemservice.web.message;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/message/items")
 @RequiredArgsConstructor
+@Slf4j
 public class MessageItemController {
 
     private final ItemRepository itemRepository;
@@ -26,6 +28,7 @@ public class MessageItemController {
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
+        log.info("itemIdVariable={}", itemId);
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "message/item";
